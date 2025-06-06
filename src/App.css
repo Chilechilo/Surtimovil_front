@@ -22,6 +22,11 @@ body {
 
 .dashboard-expanded {
   padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
 .auth-form h2, .dashboard h1 {
@@ -88,6 +93,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1rem;
+  padding: 1rem;
 }
 
 .producto {
@@ -95,4 +101,42 @@ body {
   border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.formulario, .resultado {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+input[type="number"],
+input[type="text"],
+select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  padding: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
 }

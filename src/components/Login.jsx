@@ -12,7 +12,7 @@ const LOGIN = gql`
   }
 `;
 
-function Login({ setUsuario }) {
+function Login({ setUsuario, setMostrarRegistro }) {
   const [form, setForm] = useState({ email: '', password: '' });
   const [loginMutation, { data, loading, error }] = useMutation(LOGIN);
 
@@ -20,7 +20,6 @@ function Login({ setUsuario }) {
     e.preventDefault();
     try {
       const res = await loginMutation({ variables: form });
-
       if (res?.data?.login?.token) {
         const token = res.data.login.token;
         localStorage.setItem('token', token);
@@ -59,6 +58,10 @@ function Login({ setUsuario }) {
       {loading && <p>Verificando...</p>}
       {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
       {data?.login?.message && <p>{data.login.message}</p>}
+
+      <button className="switch" onClick={() => setMostrarRegistro(true)}>
+        ¿No tienes cuenta? Regístrate aquí
+      </button>
     </div>
   );
 }

@@ -1,38 +1,83 @@
-import { gql, useMutation } from '@apollo/client';
 import { useState } from 'react';
-
+import { gql, useMutation } from '@apollo/client';
 const CREATE_USER = gql`
-  mutation CreateUser($name: String!, $email: String!, $password: String!, $role: String) {
+  mutation createUser($name: String!, $email: String!, $password: String!, $role: String!) {
     createUser(name: $name, email: $email, password: $password, role: $role) {
-      Id_user
+      id
       name
+      email
+      role
     }
   }
 `;
+function CreateUser({ isRegistroInicial = false, setVistaActual }) {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: isRegistroInicial ? 'cliente' : '',
+  });
 
-function CreateUser() {
-  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'cliente' });
-  const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
+  const [createUser, { loading, error }] = useMutation(CREATE_USER);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await createUser({ variables: form });
+    alert('Usuario registrado');
+    if (isRegistroInicial) {
+      setVistaActual('login');
+    } else {
+      setForm({ name: '', email: '', password: '', role: '' });
+    }
   };
 
   return (
-    <div>
-      <h2>Crear Usuario</h2>
+    <div className="auth-form">
+      <h2>{isRegistroInicial ? 'Crear Cuenta' : 'Crear Usuario'}</h2>
       <form onSubmit={handleSubmit}>
-        <input placeholder="Nombre" onChange={e => setForm({ ...form, name: e.target.value })} /><br />
-        <input placeholder="Correo" onChange={e => setForm({ ...form, email: e.target.value })} /><br />
-        <input placeholder="Contraseña" type="password" onChange={e => setForm({ ...form, password: e.target.value })} /><br />
-        <input placeholder="Rol (opcional)" onChange={e => setForm({ ...form, role: e.target.value })} /><br />
-        <button type="submit" disabled={loading}>Crear</button>
+        <input
+          type="text"
+          placeholder="Nombre"
+          value={form.name}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+        />
+        <input
+          type="email"
+          placeholder="Correo"
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        />
+
+        {!isRegistroInicial && (
+          <select
+            value={form.role}
+            onChange={(e) => setForm({ ...form, role: e.target.value })}
+          >
+            <option value="">Selecciona un rol</option>
+            <option value="cliente">Cliente</option>
+            <option value="admin">Admin</option>
+          </select>
+        )}
+
+        <button type="submit" disabled={loading}>
+          {isRegistroInicial ? 'Registrarse' : 'Crear Usuario'}
+        </button>
       </form>
-      {data && <p>Usuario creado: {data.createUser.name}</p>}
+
       {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
+
+      {isRegistroInicial && (
+        <button className="switch" onClick={() => setVistaActual('login')}>
+          ¿Ya tienes cuenta? Inicia sesión
+        </button>
+      )}
     </div>
   );
 }
-
 export default CreateUser;
