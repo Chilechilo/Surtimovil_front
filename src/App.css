@@ -1,0 +1,98 @@
+body {
+  font-family: sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.auth-form, .dashboard {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 300px;
+  margin: 2rem auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.dashboard-expanded {
+  padding: 2rem;
+}
+
+.auth-form h2, .dashboard h1 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.auth-form input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.auth-form button,
+.dashboard button,
+.navbar button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.6rem 1rem;
+  margin: 0.25rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.auth-form .switch {
+  background-color: transparent;
+  color: #333;
+  border: none;
+  margin-top: 0.5rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  gap: 0.5rem;
+}
+
+.navbar button:hover {
+  background-color: #3e8e41;
+}
+
+.logout-btn {
+  background-color: #888 !important;
+}
+
+.admin-btn {
+  background-color: crimson;
+}
+
+.productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.producto {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
