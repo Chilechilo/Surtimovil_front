@@ -1,5 +1,5 @@
-import { gql, useMutation } from '@apollo/client';
-import { useState } from 'react';
+import { gql, useMutation } from "@apollo/client";
+import { useState } from "react";
 
 const UPDATE_PRODUCT = gql`
   mutation updateProduct(
@@ -25,12 +25,12 @@ const UPDATE_PRODUCT = gql`
 
 function UpdateProduct() {
   const [form, setForm] = useState({
-    id: '',
-    name: '',
-    brand: '',
-    description: '',
-    price: '',
-    stock: ''
+    id: "",
+    name: "",
+    brand: "",
+    description: "",
+    price: "",
+    stock: "",
   });
 
   const [updateProduct, { loading, error }] = useMutation(UPDATE_PRODUCT);
@@ -38,25 +38,25 @@ function UpdateProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const input = {
+    const variables = {
       id_product: parseInt(form.id),
       name: form.name,
       brand: form.brand,
       description: form.description,
       price: parseFloat(form.price),
-      stock: parseInt(form.stock)
+      stock: parseInt(form.stock),
     };
 
-    console.log('Variables finales a enviar:', JSON.stringify(input, null, 2));
+    console.log("Variables a enviar:", variables);
 
     try {
-      const { data } = await updateProduct({ variables: input });
+      const { data } = await updateProduct({ variables });
       if (data?.updateProduct?.message) {
-        alert(data.updateProduct.message);
-        setForm({ id: '', name: '', brand: '', description: '', price: '', stock: '' });
+        alert("Producto actualizado");
+        setForm({ id: "", name: "", brand: "", description: "", price: "", stock: "" });
       }
     } catch (err) {
-      console.error('Error al actualizar producto:', err.message);
+      console.error("Error al actualizar producto:", err);
     }
   };
 
@@ -66,7 +66,7 @@ function UpdateProduct() {
       <form onSubmit={handleSubmit}>
         <input
           type="number"
-          placeholder="ID del Producto"
+          placeholder="ID"
           value={form.id}
           onChange={(e) => setForm({ ...form, id: e.target.value })}
         />
@@ -104,7 +104,7 @@ function UpdateProduct() {
         <button type="submit" disabled={loading}>Actualizar</button>
       </form>
 
-      {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
+      {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
     </div>
   );
 }
