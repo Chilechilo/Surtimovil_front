@@ -18,6 +18,12 @@ import ProductCostCalculator from './components/ProductCostCalculator';
 import ProductList from './components/ProductList';
 import UserTotalCost from './components/UserTotalCost';
 import Login from './components/Login';
+import CreateOrderProduct from './components/CreateOrderProduct';
+import UpdateUser from './components/UpdateUser';
+import CreateProduct from './components/CreateProduct';
+import UpdateProduct from './components/UpdateProduct';
+import DeleteProduct from './components/DeleteProduct';
+import RevokeToken from './components/RevokeToken';
 
 const httpLink = createHttpLink({
   uri: 'https://surtimovilback-production.up.railway.app/',
@@ -71,6 +77,28 @@ function App() {
           <button onClick={() => setVistaActual('costoProducto')}>Costo Producto</button>
           <button onClick={() => setVistaActual('crearOrden')}>Crear Orden</button>
           <button onClick={() => setVistaActual('actualizarOrden')}>Actualizar Orden</button>
+            <button onClick={() => setVistaActual('crearOrdenProducto')}>Asignar Productos a Orden</button>
+
+          {usuario.role === 'admin' && (
+            <>
+          <button onClick={() => setVistaActual('actualizarUsuario')} className="admin-btn">
+            Actualizar Usuario
+          </button>
+          <button onClick={() => setVistaActual('crearProducto')} className="admin-btn">
+            Crear Producto
+          </button>
+          <button onClick={() => setVistaActual('actualizarProducto')} className="admin-btn">
+            Actualizar Producto
+          </button>
+          <button onClick={() => setVistaActual('eliminarProducto')} className="admin-btn">
+            Eliminar Producto
+          </button>
+          <button onClick={() => setVistaActual('revocarToken')} className="admin-btn">
+            Revocar Sesiones
+          </button>
+        </>
+          )}  
+
           {usuario.role === 'admin' && (
             <button onClick={() => setVistaActual('eliminarUsuario')} className="admin-btn">
               Eliminar Usuario
@@ -93,6 +121,13 @@ function App() {
           <UpdateOrderStatus idUsuario={usuario.id} />
         )}
         {vistaActual === 'eliminarUsuario' && <DeleteUser />}
+        {vistaActual === 'crearOrdenProducto' && <CreateOrderProduct />}
+        {vistaActual === 'actualizarUsuario' && <UpdateUser />}
+        {vistaActual === 'crearProducto' && <CreateProduct />}
+        {vistaActual === 'actualizarProducto' && <UpdateProduct />}
+        {vistaActual === 'eliminarProducto' && <DeleteProduct />}
+        {vistaActual === 'revocarToken' && <RevokeToken />}
+
       </div>
     );
   };
