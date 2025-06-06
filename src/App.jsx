@@ -26,7 +26,7 @@ import DeleteProduct from './components/DeleteProduct';
 import RevokeToken from './components/RevokeToken';
 
 const httpLink = createHttpLink({
-  uri: 'https://surtimovilback-production.up.railway.app/',
+  uri: 'https://surtimovilback-production.up.railway.app/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
